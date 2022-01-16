@@ -3,24 +3,25 @@ pragma solidity ^0.8.3;
 
 import "hardhat/console.sol";
 
-Contract Token {
-    string public name = "SimpleDApp Token";
-    string public symbol = "SAPP";
-    uint public totalSupply = 1000000;
-    mapping(address => uint) balances;
+contract Token {
+  string public name = "SimpleDApp Token";
+  string public symbol = "SAPP";
+  uint public totalSupply = 1000000;
+  address public owner;
+  mapping(address => uint) balances;
 
-    constructor() {
-        balances[msg.sender] = totalSupply;
-        owner = msg.sender;
-    }
+  constructor() {
+    balances[msg.sender] = totalSupply;
+    owner = msg.sender;
+  }
 
-    function transfer(address to, uint amount) external {
-        require(balances[msg.sender] >= amount, "Not enough tokens");
-        balances[msg.sender] -= amount;
-        balances[to] += amount;
-    }
+  function transfer(address to, uint amount) external {
+    require(balances[msg.sender] >= amount, "Not enough tokens");
+    balances[msg.sender] -= amount;
+    balances[to] += amount;
+  }
 
-    function balanceOf(address account) external view returns (uint) {
-        return balances[account];
-    }
+  function balanceOf(address account) external view returns (uint) {
+    return balances[account];
+  }
 }
